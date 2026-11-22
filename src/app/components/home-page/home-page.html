@@ -1,0 +1,138 @@
+<div class="home-screen-wrapper">
+  <!-- Minimal Top Bar for Branding & Dark Mode Toggle -->
+  <header class="home-top-bar">
+    <div class="brand-group">
+      <div class="brand-badge">
+        <app-icons name="pan" [size]="22" color="var(--deep-charcoal)"></app-icons>
+      </div>
+      <div class="brand-text">
+        <h1 class="brand-name">Zuppa</h1>
+        <span class="brand-tagline">Artisan Recipe Journal</span>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="icon-btn-theme"
+      (click)="themeService.toggleTheme()"
+      [attr.aria-label]="themeService.isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+    >
+      <app-icons [name]="themeService.isDarkMode() ? 'sun' : 'moon'" [size]="20" color="var(--text-primary)"></app-icons>
+    </button>
+  </header>
+
+  <!-- Centered Main Message and 2 Action Buttons -->
+  <main class="home-center-stage">
+    <div class="thank-you-card">
+      <h2 class="thank-you-heading">Thank you for trying out my app!</h2>
+
+      <div class="home-actions-row">
+        <button
+          type="button"
+          class="btn-home-action btn-setup-2fa"
+          (click)="handleOpen2faSetup()"
+        >
+          <app-icons name="key" [size]="18" color="var(--deep-charcoal)"></app-icons>
+          <span>Set up 2FA</span>
+        </button>
+
+        <button
+          type="button"
+          class="btn-home-action btn-logout"
+          (click)="handleLogout()"
+        >
+          <app-icons name="logout" [size]="18" color="var(--text-primary)"></app-icons>
+          <span>Log out</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- 2FA QR CODE SETUP MODAL -->
+  @if (isMfaSetupOpen()) {
+    <div class="mfa-setup-backdrop" (click)="closeMfaSetupModal()">
+      <div class="mfa-setup-modal" (click)="$event.stopPropagation()">
+        <div class="mfa-setup-header">
+          <h3 class="mfa-setup-title">Set Up Google Authenticator</h3>
+          <button
+            type="button"
+            class="mfa-close-btn"
+            (click)="closeMfaSetupModal()"
+            aria-label="Close modal"
+          >
+            ✕
+          </button>
+        </div>
+
+        @if (isLoadingMfa()) {
+          <div class="mfa-loading-box">
+            <p>Generating your QR code...</p>
+          </div>
+        } @else if (mfaSetupData()) {
+          <div class="mfa-qr-section">
+            <p class="mfa-instructions">
+              Scan this QR code with your <strong>Google Authenticator</strong> app, then enter the 6-digit code below to activate 2FA.
+            </p>
+
+            <div class="qr-image-frame">
+              <img
+                [src]="mfaSetupData()!.qrCodeImage"
+                alt="Google Authenticator 2FA QR Code"
+                class="qr-code-img"
+              />
+            </div>
+
+            @if (mfaSetupData()!.secretKey) {
+              <div class="secret-key-box">
+                <span class="secret-key-label">Manual Setup Key:</span>
+                <code class="secret-key-value">{{ mfaSetupData()!.secretKey }}</code>
+              </div>
+            }
+
+            <form (ngSubmit)="handleConfirm2faSetup()" class="mfa-confirm-form">
+              <div class="input-field-group">
+                <label for="confirm-2fa-code">Enter 6-Digit Code to Confirm</label>
+                <input
+                  id="confirm-2fa-code"
+                  type="text"
+                  inputmode="numeric"
+                  maxlength="6"
+                  [(ngModel)]="confirmCode"
+                  name="confirmCode"
+                  placeholder="000000"
+                  class="mfa-code-input"
+                  autocomplete="one-time-code"
+                  required
+                />
+              </div>
+
+              @if (mfaSetupError()) {
+                <div class="mfa-error-alert">
+                  <span>{{ mfaSetupError() }}</span>
+                </div>
+              }
+
+              @if (mfaSetupSuccess()) {
+                <div class="mfa-success-alert">
+                  <span>{{ mfaSetupSuccess() }}</span>
+                </div>
+              }
+
+              <button
+                type="submit"
+                class="btn-confirm-2fa"
+                [disabled]="isConfirmingMfa()"
+              >
+                {{ isConfirmingMfa() ? 'Verifying...' : 'Confirm & Enable 2FA' }}
+              </button>
+            </form>
+          </div>
+        } @else if (mfaSetupError()) {
+          <div class="mfa-error-alert">
+            <span>{{ mfaSetupError() }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

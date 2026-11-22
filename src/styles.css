@@ -1,0 +1,247 @@
+/* ==========================================================================
+   Zuppa Design System (Theme Tokens & Global Utilities)
+   Angular Edition
+   ========================================================================== */
+
+:root {
+  /* Core Theme Colors */
+  --mustard-yellow: #FFDB58;
+  --mustard-yellow-dark: #E5C345;
+  --sage-green: #9BC59D;
+  --sage-green-dark: #7CA67E;
+  --sage-green-light: #C2DEC4;
+  --off-white: #FDFDFD;
+  --deep-charcoal: #344E41;
+  --deep-charcoal-dark: #23342C;
+
+  /* Surfaces & Backgrounds - Light Theme */
+  --bg-primary: #F7F9F7;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --chip-bg: #EAF2EB;
+  --bg-secondary-container: #EAF2EB;
+  --bg-surface-glass: rgba(253, 253, 253, 0.96);
+
+  /* Component specific tokens - Light */
+  --category-strip-bg: linear-gradient(135deg, rgba(155, 197, 157, 0.45) 0%, rgba(194, 222, 196, 0.6) 100%);
+  --category-strip-border: var(--sage-green);
+  --chip-glass-bg: var(--sage-green);
+  --chip-glass-text: #FFFFFF;
+  --chip-glass-border: var(--sage-green-dark);
+  --tag-pill-color: var(--sage-green-dark);
+  --tag-pill-bg: var(--bg-secondary-container);
+  --tag-pill-border: var(--border-color);
+
+  /* Typography Colors - Light */
+  --text-primary: #344E41;
+  --text-secondary: #4A6B5B;
+  --text-muted: #7E9789;
+  --text-on-dark: #FDFDFD;
+  --text-on-mustard: #344E41;
+
+  /* Borders & Dividers - Light */
+  --border-color: #DDE8DF;
+  --border-subtle: #E8EFE9;
+  --border-focus: #9BC59D;
+
+  /* Accent & State Colors */
+  --accent-favorite: #E63946;
+  --danger: #E63946;
+  --danger-bg: #FFEBEB;
+  --success: #2A9D8F;
+  --warning: #E76F51;
+
+  /* Shadows */
+  --card-shadow: 0 4px 18px rgba(52, 78, 65, 0.07);
+  --card-shadow-hover: 0 10px 28px rgba(52, 78, 65, 0.13);
+  --button-shadow: 0 4px 14px rgba(255, 219, 88, 0.45);
+  --modal-shadow: 0 20px 48px rgba(35, 52, 44, 0.25);
+
+  /* Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+
+  /* Layout */
+  --max-content-width: 1360px;
+}
+
+/* Dark Theme Tokens */
+[data-theme='dark'] {
+  --bg-primary: #1E2D26;
+  --bg-surface: #283B32;
+  --bg-card: #283B32;
+  --card-bg: #283B32;
+  --chip-bg: #385045;
+  --bg-secondary-container: #385045;
+  --bg-surface-glass: rgba(40, 59, 50, 0.96);
+
+  /* Component specific tokens - Dark (Lighter Sage Green Pills & Badges) */
+  --category-strip-bg: #283B32;
+  --category-strip-border: #385045;
+  --chip-glass-bg: #9BC59D;
+  --chip-glass-text: #1E2D26;
+  --chip-glass-border: #C2DEC4;
+  --tag-pill-color: #C2DEC4;
+  --tag-pill-bg: #385045;
+  --tag-pill-border: #4A6B5B;
+
+  --text-primary: #F0F4F1;
+  --text-secondary: #C2DEC4;
+  --text-muted: #A5B8AC;
+  --text-on-dark: #F0F4F1;
+
+  --border-color: #385045;
+  --border-subtle: #2D4339;
+  --border-focus: #FFDB58;
+
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --card-shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --modal-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* Base Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Global Dark Theme Component Overrides */
+[data-theme='dark'] .category-strip-container {
+  background: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+[data-theme='dark'] .category-chip,
+[data-theme='dark'] .hero-category-badge {
+  background-color: #9BC59D !important;
+  color: #1E2D26 !important;
+  font-weight: 800 !important;
+  border: 1px solid #C2DEC4 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme='dark'] .tag-chip,
+[data-theme='dark'] .tag-badge {
+  background-color: #385045 !important;
+  color: #C2DEC4 !important;
+  border-color: #4A6B5B !important;
+}
+
+[data-theme='dark'] .tag-chip:hover,
+[data-theme='dark'] .tag-badge:hover {
+  background-color: var(--mustard-yellow) !important;
+  color: var(--deep-charcoal) !important;
+}
+
+[data-theme='dark'] .category-circle-item .category-label {
+  color: #F0F4F1 !important;
+}
+
+[data-theme='dark'] .category-circle-item.selected .category-label {
+  color: var(--mustard-yellow) !important;
+}
+
+[data-theme='dark'] .btn-read-article {
+  background-color: var(--mustard-yellow) !important;
+  color: var(--deep-charcoal) !important;
+}
+
+[data-theme='dark'] .action-btn {
+  background-color: rgba(40, 59, 50, 0.9) !important;
+}
+
+[data-theme='dark'] .note-banner-title {
+  color: var(--mustard-yellow) !important;
+}
+
+/* Utility Containers */
+.container {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  outline: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+input, textarea, select {
+  font-family: inherit;
+  outline: none;
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--mustard-yellow-dark);
+  box-shadow: 0 0 0 3px rgba(255, 219, 88, 0.25);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  background-color: var(--deep-charcoal);
+  color: var(--off-white);
+  padding: 12px 22px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--mustard-yellow);
+  animation: slideInUp 0.25s ease-out;
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
